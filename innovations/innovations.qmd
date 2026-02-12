@@ -112,55 +112,9 @@ Some features of the \LaTeX{} template -- author biographies,
 declarations of competing interests, and funding declarations -- are
 not supported.
 
-## Example table
+<!-- R code chunks removed for template portability -->
+This template demonstrates the SAGE journal format.
 
-Often authors want to use Quarto because it allows for literate
-programming, and articles which change when the analysis
-changes. Here's an example table put together with the modelsummary
-package [@msummary].
-
-```{r}
-#| label: tbl-modelsummary
-#| tbl-cap: Modelsummary output
-library(modelsummary)
-library(kableExtra)
-library(gt)
-
-url <- 'https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Guerry.csv'
-dat <- read.csv(url)
-
-models <- list(
-  "OLS"     = lm(Donations ~ Literacy + Clergy, data = dat),
-  "Poisson" = glm(Donations ~ Literacy + Commerce, family = poisson, data = dat)
-)
-
-modelsummary(models)
-```
-
-Table support in two column layouts is extremely brittle, and you may
-find that portions of content disappear when you are trying to fit
-multiple tables in a single page.
-
-## Example figure
-
-I also include an example figure, @fig-literacy. This figure comes in
-one column output. This is achieved by setting the `fig.env` option in
-the relevant R chunk. If you have a beautiful gem of a figure which
-looks good in two-column mode, you need only delete this line in the
-source code.
-
-```{r}
-#| message: false
-#| warning: false
-#| label: fig-literacy
-#| fig-cap: Example figure using the same data
-#| fig.env: figure*
-library(ggplot2)
-ggplot(dat, aes(x = Literacy, y = Donations)) +
-    geom_point() +
-    geom_smooth(method = "lm", se = FALSE) +
-    theme_minimal()
-```
 
 # TO-DO
 
