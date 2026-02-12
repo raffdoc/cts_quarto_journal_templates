@@ -1,0 +1,1490 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem{refremark}{Remark}[section]
+\newtheorem{refsolution}{Solution}[section]
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Please insert your article title here},
+  pdfauthor={Mark Taylor; Author Two; Author Three},
+  pdfkeywords={keyword1, keyword2, keyword3, keyword4},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Please insert your article title here}
+\author{Mark Taylor \and Author Two \and Author Three}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+This is a generic template designed for use by multiple journals, which
+includes several options for customization. Please refer the author
+guidelines and author LaTeX manuscript preparation document for the
+journal to which you are submitting in order to confirm that your
+manuscript will comply with the journal's requirements. Please replace
+this text with your abstract. This is sample abstract text just for the
+template display purpose.
+\end{abstract}
+
+
+\section{First level head}\label{sec1}
+
+Please lay out your article using the section headings and the given
+body text is dummy text for layout purpose. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit (Hirt, Amsden, and Cook 1974). Ut purus
+elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur
+dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id,
+vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus
+vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor
+gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra
+ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus.
+Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla.
+Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh
+mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci
+sit amet orci dignissim rutrum.
+
+\section{Another first level head}\label{sec2}
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo (Liska et al. 2010). Maecenas lacinia. Nam ipsum
+ligula, eleifend at, accumsan nec, suscipit a, ipsum. Morbi blandit
+ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia nulla
+vitae enim. Pellentesque tincidunt purus vel magna. Integer non enim.
+Praesent euismod nunc eu purus. Donec bibendum quam in tellus. Nullam
+cursus pulvinar lectus. Donec et mi. Nam vulputate metus eu enim.
+Vestibulum pellentesque felis eu massa. Example for bibliography
+citation (Taylor and Green 1937), text (Knupp 1999; \textbf{Kamm2000?})
+inserted in text for your reference.
+
+Quisque ullamcorper placerat ipsum. Cras nibh (Kucharik, Shashkov, and
+Wendroff 2003; Blanchard and Loubere 2015). Morbi vel justo vitae lacus
+tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer adipiscing
+elit. In hac habitasse platea dictumst. Integer tempus convallis augue.
+Etiam facilisis. Nunc elementum fermentum wisi. Aenean placerat. Ut
+imperdiet, enim sed gravida sollicitudin, felis odio placerat quam, ac
+pulvinar elit purus eget enim. Nunc vitae tortor. Proin tempus nibh sit
+amet nisl. Vivamus quis tortor vitae risus porta vehicula.
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. (Figure \ref{fig-fig1} and \ref{fig-fig2})
+Aliquam pellentesque, augue quis sagittis posuere, turpis lacus congues
+quam, in hendrerit risus eros eget felis. Maecenas eget erat in sapien
+mattis porttitor. Vestibulum porttitor. Nulla facilisi. Sed a turpis eu
+lacus commodo facilisis. Morbi fringilla, wisi in dignissim interdum,
+justo lectus sagittis dui, et vehicula libero dui cursus dui. Mauris
+tempor ligula sed lacus. Duis cursus enim ut augue. Cras ac magna. Cras
+nulla. Nulla egestas. Curabitur a leo. Quisque egestas wisi eget nunc.
+Nam feugiat lacus vel est. Curabitur consectetuer.
+
+\begin{figure}[t]
+
+\centering{
+
+\includegraphics[width=\linewidth,height=1.5in,keepaspectratio]{empty.pdf}
+
+}
+
+\caption{\label{fig-fig1}This is the sample figure caption.}
+
+\end{figure}%
+
+Suspendisse vel felis. Ut lorem lorem, interdum eu, tincidunt sit amet,
+laoreet vitae, arcu. Aenean faucibus pede eu ante. Praesent enim elit,
+rutrum at, molestie non, nonummy vel, nisl. Ut lectus eros, malesuada
+sit amet, fermentum eu, sodales cursus, magna. Donec eu purus. Quisque
+vehicula, urna sed ultricies auctor, pede lorem egestas dui, et
+convallis elit erat sed nulla. Donec luctus. Curabitur et nunc. Aliquam
+dolor odio, commodo pretium, ultricies non, pharetra in, velit. Integer
+arcu est, nonummy in, fermentum faucibus, egestas vel, odio.
+
+\begin{align*}
+s(nT_{s}) &= s(t)\times \sum\limits_{n=0}^{N-1} \delta (t-nT_{s}) \leftrightarrow  S \left(\frac{m}{NT_{s}}\right) \nonumber\\[3pt]
+&= \frac{1}{N} \sum\limits_{n=0}^{N-1} \sum\limits_{k=-N/2}^{N/2-1} s_{k} e^{\mathrm{j}2\pi k\Delta fnT_{s}} e^{-j\frac{2\pi}{N}mn}
+\end{align*}
+
+Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed
+vehicula hendrerit sem. Duis non odio. Morbi ut dui. Sed accumsan risus
+eget odio. In hac habitasse platea dictumst. Pellentesque non elit.
+Fusce sed justo eu urna porta tincidunt. Mauris felis odio, sollicitudin
+sed, volutpat a, ornare ac, erat. Morbi quis dolor. Donec pellentesque,
+erat ac sagittis semper, nunc dui lobortis purus, quis congue purus
+metus ultricies tellus. Proin et quam. Class aptent taciti sociosqu ad
+litora torquent per conubia nostra, per inceptos hymenaeos. Praesent
+sapien turpis, fermentum vel, eleifend faucibus, vehicula eu, lacus.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=4.75in,height=1.5in]{empty.pdf}
+
+}
+
+\caption{\label{fig-fig2}This is the sample figure caption.}
+
+\end{figure}%
+
+\subsection{Second level head}\label{second-level-head}
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada
+fames ac turpis egestas. Donec odio elit, dictum in, hendrerit sit amet,
+egestas sed, leo. Praesent feugiat sapien aliquet odio. Integer vitae
+justo. Aliquam vestibulum fringilla lorem. Sed neque lectus,
+consectetuer at, consectetuer sed, eleifend ac, lectus. Nulla facilisi.
+Pellentesque eget lectus. Proin eu metus. Sed porttitor. In hac
+habitasse platea dictumst. Suspendisse eu lectus. Ut mi mi, lacinia sit
+amet, placerat et, mollis vitae, dui. Sed ante tellus, tristique ut,
+iaculis eu, malesuada ac, dui. Mauris nibh leo, facilisis non,
+adipiscing quis, ultrices a, dui.
+
+Morbi luctus, wisi viverra faucibus pretium, nibh est placerat odio, nec
+commodo wisi enim eget quam. Quisque libero justo, consectetuer a,
+feugiat vitae, porttitor eu, libero. Suspendisse sed mauris vitae elit
+sollicitudin malesuada.
+
+Maecenas ultricies eros sit amet ante. Ut venenatis velit. Maecenas sed
+mi eget dui varius euismod. Phasellus aliquet volutpat odio. Vestibulum
+ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+Curae; Pellentesque sit amet pede ac sem eleifend consectetuer. Nullam
+elementum, urna vel imperdiet sodales, elit ipsum pharetra ligula, ac
+pretium ante justo a nulla. Curabitur tristique arcu eu metus.
+Vestibulum lectus. Proin mauris. Proin eu nunc eu urna hendrerit
+faucibus. Aliquam auctor, pede consequat laoreet varius, eros tellus
+scelerisque quam, pellentesque hendrerit ipsum dolor sed augue. Nulla
+nec lacus.
+
+\begin{quote}
+This is an example (Burton et al. September 2-\/-6, 2013; Berndt et al.
+2011; Kucharik and Shashkov 2012) for quote text. This is an example for
+quote text. This is an example for quote text. This is an example for
+quote text (Breil, Alcin, and Maire 2015). This is an example for quote
+text. This is an example for quote text. This is an example for quote
+text. This is an example for quote text. This is an example for quote
+text. This is an example for quote text (Barth 1997). This is an example
+for quote text. This is an example for quote text. This is an example
+for quote text.
+\end{quote}
+
+\section{Example for another first level head}\label{sec3}
+
+\subsection{Example for another second level
+head}\label{example-for-another-second-level-head}
+
+Suspendisse vitae elit. Aliquam arcu neque, ornare in, ullamcorper quis,
+commodo eu, libero. Fusce sagittis erat at erat tristique mollis.
+Maecenas sapien libero, molestie et, lobortis in, sodales eget, dui.
+Morbi ultrices rutrum lorem. Nam elementum ullamcorper leo. Morbi dui.
+Aliquam sagittis. Nunc placerat. Pellentesque tristique sodales est.
+Maecenas imperdiet lacinia velit. Cras non urna. Morbi eros pede,
+suscipit ac, varius vel, egestas non, eros. Praesent malesuada, diam id
+pretium elementum, eros sem dictum tortor, vel consectetuer odio sem sed
+wisi.
+
+Sed feugiat. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Ut pellentesque augue sed urna.
+Vestibulum diam eros, fringilla et, consectetuer eu, nonummy id, sapien.
+Nullam at lectus. In sagittis ultrices mauris. Curabitur malesuada erat
+sit amet massa. Fusce blandit. Aliquam erat volutpat. Aliquam euismod.
+Aenean vel lectus. Nunc imperdiet justo nec dolor.
+
+\subsection{Second level head}\label{second-level-head-1}
+
+Etiam euismod. Fusce facilisis lacinia dui. Suspendisse potenti. In mi
+erat, cursus id, nonummy sed, ullamcorper eget, sapien. Praesent
+pretium, magna in eleifend egestas, pede pede pretium lorem, quis
+consectetuer tortor sapien facilisis magna. Mauris quis magna varius
+nulla scelerisque imperdiet. Aliquam non quam. Aliquam porttitor quam a
+lacus. Praesent vel arcu ut tortor cursus volutpat. In vitae pede quis
+diam bibendum placerat. Fusce elementum convallis neque. Sed dolor orci,
+scelerisque ac, dapibus nec, ultricies ut, mi. Duis nec dui quis leo
+sagittis commodo.
+
+\subsubsection{Third level head}\label{third-level-head}
+
+Aliquam lectus. Vivamus leo. Quisque ornare tellus ullamcorper nulla.
+Mauris porttitor pharetra tortor. Sed fringilla justo sed mauris. Mauris
+tellus. Sed non leo. Nullam elementum, magna in cursus sodales, augue
+est scelerisque sapien, venenatis congue nulla arcu et pede. Ut suscipit
+enim vel sapien. Donec congue. Maecenas urna mi, suscipit in, placerat
+ut, vestibulum ut, massa. Fusce ultrices nulla et nisl.
+
+\paragraph{Fourth level head}\label{fourth-level-head}
+
+Sed feugiat. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Ut pellentesque augue sed urna.
+Vestibulum diam eros, fringilla et, consectetuer eu, nonummy id, sapien.
+Nullam at lectus. In sagittis ultrices mauris. Curabitur malesuada erat
+sit amet massa. Fusce blandit. Aliquam erat volutpat. Aliquam euismod.
+Aenean vel lectus. Nunc imperdiet justo nec dolor.
+
+Etiam euismod. Fusce facilisis lacinia dui. Suspendisse potenti. In mi
+erat, cursus id, nonummy sed, ullamcorper eget, sapien. Praesent
+pretium, magna in eleifend egestas, pede pede pretium lorem, quis
+consectetuer tortor sapien facilisis magna. Mauris quis magna varius
+nulla scelerisque imperdiet. Aliquam non quam. Aliquam porttitor quam a
+lacus. Praesent vel arcu ut tortor cursus volutpat. In vitae pede quis
+diam bibendum placerat. Fusce elementum convallis neque. Sed dolor orci,
+scelerisque ac, dapibus nec, ultricies ut, mi. Duis nec dui quis leo
+sagittis commodo.
+
+\subparagraph{Fifth level head.}\label{fifth-level-head.}
+
+Aliquam lectus. Vivamus leo. Quisque ornare tellus ullamcorper nulla.
+Mauris porttitor pharetra tortor. Sed fringilla justo sed mauris. Mauris
+tellus. Sed non leo. Nullam elementum, magna in cursus sodales, augue
+est scelerisque sapien, venenatis congue nulla arcu et pede. Ut suscipit
+enim vel sapien. Donec congue. Maecenas urna mi, suscipit in, placerat
+ut, vestibulum ut, massa. Fusce ultrices nulla et nisl.
+
+Etiam ac leo a risus tristique nonummy. Donec dignissim tincidunt nulla.
+Vestibulum rhoncus molestie odio. Sed lobortis, justo et pretium
+lobortis, mauris turpis condimentum augue, nec ultricies nibh arcu
+pretium enim. Nunc purus neque, placerat id, imperdiet sed, pellentesque
+nec, nisl. Vestibulum imperdiet neque non sem accumsan laoreet. In hac
+habitasse platea dictumst. Etiam condimentum facilisis libero.
+Suspendisse in elit quis nisl aliquam dapibus. Pellentesque auctor
+sapien. Sed egestas sapien nec lectus. Pellentesque vel dui vel neque
+bibendum viverra. Aliquam porttitor nisl nec pede. Proin mattis libero
+vel turpis. Donec rutrum mauris et libero. Proin euismod porta felis.
+Nam lobortis, metus quis elementum commodo, nunc lectus elementum
+mauris, eget vulputate ligula tellus eu neque. Vivamus eu dolor.
+
+Nulla in ipsum. Praesent eros nulla, congue vitae, euismod ut, commodo
+a, wisi. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aenean nonummy magna non leo. Sed
+felis erat, ullamcorper in, dictum non, ultricies ut, lectus. Proin vel
+arcu a odio lobortis euismod. Vestibulum ante ipsum primis in faucibus
+orci luctus et ultrices posuere cubilia Curae; Proin ut est. Aliquam
+odio. Pellentesque massa turpis, cursus eu, euismod nec, tempor congue,
+nulla. Duis viverra gravida mauris. Cras tincidunt. Curabitur eros
+ligula, varius ut, pulvinar in, cursus faucibus, augue
+(Box~\ref{box:1}).
+
+Etiam ac leo a risus tristique nonummy. Donec dignissim tincidunt nulla.
+Vestibulum rhoncus molestie odio. Sed lobortis, justo et pretium
+lobortis, mauris turpis condimentum augue, nec ultricies nibh arcu
+pretium enim. Nunc purus neque, placerat id, imperdiet sed, pellentesque
+nec, nisl. Vestibulum imperdiet neque non sem accumsan laoreet. In hac
+habitasse platea dictumst. Etiam condimentum facilisis libero.
+Suspendisse in elit quis nisl aliquam dapibus. Pellentesque auctor
+sapien. Sed egestas sapien nec lectus. Pellentesque vel dui vel neque
+bibendum viverra. Aliquam porttitor nisl nec pede. Proin mattis libero
+vel turpis. Donec rutrum mauris et libero. Proin euismod porta felis.
+Nam lobortis, metus quis elementum commodo, nunc lectus elementum
+mauris, eget vulputate ligula tellus eu neque. Vivamus eu dolor.
+
+This is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext. This is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext.
+
+<!-- Table removed for template verification -->
+
+Curabitur tellus magna, porttitor a, commodo a, commodo in, tortor.
+Donec interdum (Table~\ref{tab1}). Praesent scelerisque. Maecenas
+posuere sodales odio. Vivamus metus lacus, varius quis, imperdiet quis,
+rhoncus a, turpis. Etiam ligula arcu, elementum a, venenatis quis,
+sollicitudin sed, metus. Donec nunc pede, tincidunt in, venenatis vitae,
+faucibus vel, nibh. Pellentesque wisi. Nullam malesuada. Morbi ut tellus
+ut pede tincidunt porta. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. Etiam congue neque id dolor.
+
+Donec et nisl at wisi luctus bibendum. Nam interdum tellus ac libero.
+Sed sem justo, laoreet vitae, fringilla at, adipiscing ut, nibh.
+Maecenas non sem quis tortor eleifend fermentum. Etiam id tortor ac
+mauris porta vulputate. Integer porta neque vitae massa. Maecenas tempus
+libero a libero posuere dictum. Vestibulum ante ipsum primis in faucibus
+orci luctus et ultrices posuere cubilia Curae; Aenean quis mauris sed
+elit commodo placerat. Class aptent taciti sociosqu ad litora torquent
+per conubia nostra, per inceptos hymenaeos. Vivamus rhoncus tincidunt
+libero. Etiam elementum pretium justo. Vivamus est. Morbi a tellus eget
+pede tristique commodo. Nulla nisl. Vestibulum sed nisl eu sapien cursus
+rutrum.
+
+This is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for boxtext
+this is sample for boxtext this is sample for boxtext this is sample for
+boxtext this is sample for boxtext this is sample for boxtext this is
+sample for boxtext this is sample for boxtext this is sample for
+boxtext.
+
+Nulla non mauris vitae wisi posuere convallis. Sed eu nulla nec eros
+scelerisque pharetra. Nullam varius. Etiam dignissim elementum metus.
+Vestibulum faucibus, metus sit amet mattis rhoncus, sapien dui laoreet
+odio, nec ultricies nibh augue a enim. Fusce in ligula. Quisque at magna
+et nulla commodo consequat. Proin accumsan imperdiet sem. Nunc porta.
+Donec feugiat mi at justo. Phasellus facilisis ipsum quis ante. In ac
+elit eget ipsum pharetra faucibus. Maecenas viverra nulla in massa
+(Table~\ref{tab2}).
+
+Nulla in ipsum. Praesent eros nulla, congue vitae, euismod ut, commodo
+a, wisi. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aenean nonummy magna non leo. Sed
+felis erat, ullamcorper in, dictum non, ultricies ut, lectus. Proin vel
+arcu a odio lobortis euismod. Vestibulum ante ipsum primis
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. Aliquam pellentesque, augue quis sagittis
+posuere, turpis lacus congue quam, in hendrerit risus eros eget felis.
+Maecenas eget erat in sapien mattis porttitor. Vestibulum porttitor.
+Nulla facilisi. Sed a turpis eu lacus commodo facilisis. Morbi
+fringilla, wisi in dignissim interdum, justo lectus sagittis dui, et
+vehicula libero dui cursus dui. Mauris tempor ligula sed lacus. Duis
+cursus enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat lacus vel
+est. Curabitur consectetuer.
+
+Below is the example (Liska et al. 2010; Kucharik, Shashkov, and
+Wendroff 2003; Blanchard and Loubere 2015) for bulleted list. Below is
+the example for bulleted list. Below is the example for bulleted list.
+Below is the example for bulleted list. Below is the example for
+bulleted list. Below is the example for bulleted list\footnote{This is
+  an example for footnote.}:
+
+\begin{itemize}
+\item
+  bulleted list entry sample bulleted list entry (Lauritzen, Erath, and
+  Mittal 2011), sample list entry text.
+\item
+  bulleted list entry sample bulleted list entry. bulleted list entry
+  sample bulleted list entry. bulleted list entry sample bulleted list
+  entry.
+\item
+  bulleted list entry sample bulleted list entry (Klima, Kucharik, and
+  Shashkov 2017), bulleted list entry sample bulleted list entry
+  (Dukowicz and Baumgardner 2000), sample list entry text. bulleted list
+  entry sample bulleted list entry.
+\item
+  sample list entry text. sample list entry text.
+\end{itemize}
+
+Suspendisse vel felis. Ut lorem lorem, interdum eu, tincidunt sit amet,
+laoreet vitae, arcu. Aenean faucibus pede eu ante. Praesent enim elit,
+rutrum at, molestie non, nonummy vel, nisl. Ut lectus eros, malesuada
+sit amet, fermentum eu, sodales cursus, magna. Donec eu purus. Quisque
+vehicula, urna sed ultricies auctor, pede lorem egestas dui, et
+convallis elit erat sed nulla. Donec luctus. Curabitur et nunc. Aliquam
+dolor odio, commodo pretium, ultricies non, pharetra in, velit. Integer
+arcu est, nonummy in, fermentum faucibus, egestas vel, odio.
+
+Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed
+vehicula hendrerit sem. Duis non odio. Morbi ut dui. Sed accumsan risus
+eget odio. In hac habitasse platea dictumst. Pellentesque non elit.
+Fusce sed justo eu urna porta tincidunt. Mauris felis odio, sollicitudin
+sed, volutpat a, ornare ac, erat. Morbi quis dolor. Donec pellentesque,
+erat ac sagittis semper, nunc dui lobortis purus, quis congue purus
+metus ultricies tellus. Proin et quam. Class aptent taciti sociosqu ad
+litora torquent per conubia nostra, per inceptos hymenaeos. Praesent
+sapien turpis, fermentum vel, eleifend faucibus, vehicula eu, lacus.
+
+Pellentesque non elit. Fusce sed justo eu urna porta tincidunt. Mauris
+felis odio, sollicitudin sed, volutpat a, ornare ac, erat. Morbi quis
+dolor. Donec pellentesque, erat ac sagittis semper, nunc dui lobortis
+purus, quis congue purus metus ultricies tellus. Proin et quam. Below is
+the example for description list. Below is the example for description
+list. Below is the example for description list. Below is the example
+for description list. Below is the example for description list. Below
+is the sample for description list. Below is the example for description
+list. Below is the example for description list. Below is the example
+for description list. Below is the example for description list. Below
+is the example for description list:\vskip12pt
+
+\noindent \textbf{Description sample:}
+
+\begin{description}
+\item[first entry]
+description text, description text (Kucharik and Shashkov 2011, 2014;
+Loubere and Shashkov 2005). description text, description text,
+description text, description text, description text.
+\item[second long entry]
+description text, description text, description text, description text,
+description text, description text, description text.
+\item[third entry]
+description text, description text, description text, description text,
+description text.
+\item[fourth entry]
+description text, description text.
+\end{description}
+
+\noindent\textbf{Numbered list items sample:}
+\begin{enumerate}[1.]
+\item First level numbered list entry, sample numbered list entry.
+
+\item First numbered list entry, sample numbered list entry. Numbered list entry \cite{Caramana1998}, sample numbered list entry. Numbered list entry, sample numbered list entry.
+
+\begin{enumerate}[a.]
+\item Second level alpabetical list entry. Second level alpabetical list entry. Second level alpabetical list entry \cite{Hoch2009}. Second level alpabetical list entry.
+
+\item Second level alpabetical list entry. Second level alpabetical list entry \cite{Shashkov1996,Knupp1999,Knupp1999}.
+
+\begin{enumerate}[i.]
+\item Third level lowercase roman numeral list entry. Third level lowercase roman numeral list entry. Third level lowercase roman numeral list entry.
+
+\item Third level lowercase roman numeral list entry. Third level lowercase roman numeral list entry. \cite{Kamm2000}
+\end{enumerate}
+
+\item Second level alpabetical list entry. Second level alpabetical list entry \cite{Taylor1937}.
+\end{enumerate}
+
+\item First level numbered list entry, sample numbered list entry. Numbered list entry, sample numbered list entry. Numbered list entry.
+
+\item Another first level numbered list entry, sample numbered list entry. Numbered list entry, sample numbered list entry. Numbered list entry.
+\end{enumerate}
+
+\noindent\textbf{un-numbered list items sample:}
+
+\begin{enumerate}[]
+\item Sample unnumberd list text.
+\item Sample unnumberd list text.
+\item sample unnumberd list text.
+\item Sample unnumberd list text.
+\end{enumerate}
+
+\section{Examples for enunciations}\label{sec4}
+
+\begin{theorem}[]\protect\hypertarget{thm-thm1}{}\label{thm-thm1}
+
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text. Example theorem text. Example theorem text.
+Example theorem text.
+
+\end{theorem}
+
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae
+lacus tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. In hac habitasse platea dictumst. Integer tempus
+convallis augue. Etiam facilisis. Nunc elementum fermentum wisi. Aenean
+placerat. Ut imperdiet, enim sed gravida sollicitudin, felis odio
+placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor.
+Proin tempus nibh sit amet nisl. Vivamus quis tortor vitae risus porta
+vehicula.
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. Aliquam pellentesque, augue quis sagittis
+posuere, turpis lacus congue quam, in hendrerit risus eros eget felis.
+Maecenas eget erat in sapien mattis porttitor. Vestibulum porttitor.
+Nulla facilisi. Sed a turpis eu lacus commodo facilisis. Morbi
+fringilla, wisi in dignissim interdum, justo lectus sagittis dui, et
+vehicula libero dui cursus dui. Mauris tempor ligula sed lacus. Duis
+cursus enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat lacus vel
+est. Curabitur consectetuer.
+
+\begin{proposition}[]\protect\hypertarget{prp-}{}\label{prp-}
+
+Example proposition text. Example proposition text. Example proposition
+text. Example proposition text. Example proposition text. Example
+proposition text. Example proposition text. Example proposition text.
+Example proposition text. Example proposition text. Example proposition
+text. Example proposition text. Example proposition text. Example
+proposition text. Example proposition text. Example proposition text.
+
+\end{proposition}
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
+accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim. Praesent
+euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus
+pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+pellentesque felis eu massa.
+
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae
+lacus tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. In hac habitasse platea dictumst. Integer tempus
+convallis augue. Etiam facilisis. Nunc elementum fermentum wisi. Aenean
+placerat. Ut imperdiet, enim sed gravida sollicitudin, felis odio
+placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor.
+Proin tempus nibh sit amet nisl. Vivamus quis tortor vitae risus porta
+vehicula.
+
+\begin{definition}[]\protect\hypertarget{def-}{}\label{def-}
+
+Example definition text. Example definition text. Example definition
+text. Example definition text. Example definition text. Example
+definition text. Example definition text. Example definition text.
+Example definition text. Example definition text. Example definition
+text.
+
+\end{definition}
+
+Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed
+vehicula hendrerit sem. Duis non odio. Morbi ut dui. Sed accumsan risus
+eget odio. In hac habitasse platea dictumst. Pellentesque non elit.
+Fusce sed justo eu urna porta tincidunt. Mauris felis odio, sollicitudin
+sed, volutpat a, ornare ac, erat. Morbi quis dolor. Donec pellentesque,
+erat ac sagittis semper, nunc dui lobortis purus, quis congue purus
+metus ultricies tellus. Proin et quam. Class aptent taciti sociosqu ad
+litora torquent per conubia nostra, per inceptos hymenaeos. Praesent
+sapien turpis, fermentum vel, eleifend faucibus, vehicula eu, lacus.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada
+fames ac turpis egestas. Donec odio elit, dictum in, hendrerit sit amet,
+egestas sed, leo. Praesent feugiat sapien aliquet odio. Integer vitae
+justo. Aliquam vestibulum fringilla lorem. Sed neque lectus,
+consectetuer at, consectetuer sed, eleifend ac, lectus. Nulla facilisi.
+Pellentesque eget lectus. Proin eu metus. Sed porttitor. In hac
+habitasse platea dictumst. Suspendisse eu lectus. Ut mi mi, lacinia sit
+amet, placerat et, mollis vitae, dui. Sed ante tellus, tristique ut,
+iaculis eu, malesuada ac, dui. Mauris nibh leo, facilisis non,
+adipiscing quis, ultrices a, dui.
+
+\begin{proof}
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text.
+\end{proof}
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi.
+Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis
+vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
+Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla
+ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
+accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim. Praesent
+euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus
+pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+pellentesque felis eu massa.
+
+\begin{proof}[Proof of Theorem]
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text. Example for proof text. Example for proof text.
+Example for proof text.
+\end{proof}
+
+\begin{sidewaystable}%[h]
+\def\d{\hphantom{0}}
+\caption{Sideways table caption. For decimal alignment refer column 4 to 9 in tabular* preamble.\label{tab3}}%
+\begin{tabular*}{\textheight}{@{\extracolsep\fill}lllllllll@{\extracolsep\fill}}%
+\toprule
+  & \textbf{Col2 head} & \textbf{Col3 head} & \multicolumn{1}{l}{\textbf{10}} &\multicolumn{1}{l}{\textbf{20}} &\multicolumn{1}{l}{\textbf{30}} &\multicolumn{1}{l}{\textbf{10}} &\multicolumn{1}{l}{\textbf{20}} &\multicolumn{1}{l}{\textbf{30}} \\
+\midrule
+  &col2 text &col3 text &\d0.7568&\d1.0530&\d1.2642&\d0.9919&\d1.3541&\d1.6108 \\
+  &          &col2 text &12.5701 &19.6603&25.6809&18.0689&28.4865&37.3011 \\
+3 &col2 text & col3 text &\d0.7426&\d1.0393&\d1.2507&\d0.9095&\d1.2524&\d1.4958 \\
+  &          &col3 text &12.8008&19.9620&26.0324&16.6347&26.0843&34.0765 \\
+  & col2 text& col3 text &\d0.7285&\d1.0257&\d1.2374&\d0.8195&\d1.1407&\d1.3694* \\
+  &          & col3 text &13.0360&20.2690&26.3895&15.0812&23.4932&30.6060\tnote{$\dagger$}  \\
+\bottomrule
+\end{tabular*}
+\begin{tablenotes}%%[\textheight]
+\item[*] First sideways table footnote. Sideways table footnote. Sideways table footnote. Sideways table footnote.
+\item[$^\dagger$] Second sideways table footnote. Sideways table footnote. Sideways table footnote. Sideways table footnote.
+\end{tablenotes}
+\end{sidewaystable}
+
+Etiam euismod. Fusce facilisis lacinia dui. Suspendisse potenti. In mi
+erat, cursus id, nonummy sed, ullamcorper eget, sapien. Praesent
+pretium, magna in eleifend egestas, pede pede pretium lorem, quis
+consectetuer tortor sapien facilisis magna. Mauris quis magna varius
+nulla scelerisque imperdiet. Aliquam non quam. Aliquam porttitor quam a
+lacus. Praesent vel arcu ut tortor cursus volutpat. In vitae pede quis
+diam bibendum placerat. Fusce elementum convallis neque. Sed dolor orci,
+scelerisque ac, dapibus nec, ultricies ut, mi. Duis nec dui quis leo
+sagittis commodo. Aliquam lectus. Vivamus leo. Quisque ornare tellus
+ullamcorper nulla. Mauris porttitor pharetra tortor. Sed fringilla justo
+sed mauris. Mauris tellus. Sed non leo. Nullam elementum, magna in
+cursus sodales, augue est scelerisque sapien, venenatis congue nulla
+arcu et pede. Ut suscipit enim vel sapien. Donec congue. Maecenas urna
+mi, suscipit in, placerat ut, vestibulum ut, massa. Fusce ultrices nulla
+et nisl (Table~\ref{tab3}).
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada
+fames ac turpis egestas. Donec odio elit, dictum in, hendrerit sit amet,
+egestas sed, leo. Praesent feugiat sapien aliquet odio. Integer vitae
+justo. Aliquam vestibulum fringilla lorem. Sed neque lectus,
+consectetuer at, consectetuer sed, eleifend ac, lectus. Nulla facilisi
+(Figure~\ref{fig3}). Pellentesque eget lectus. Proin eu metus. Sed
+porttitor. In hac habitasse platea dictumst. Suspendisse eu lectus. Ut
+Curabitur tellus magna, porttitor a, commodo a, commodo in, tortor.
+Donec interdum. Praesent scelerisque. Mae- cenas posuere sodales odio.
+Vivamus metus lacus, varius quis, imperdiet quis, rhoncus a, turpis.
+Etiam ligula arcu, elementum a, venenatis quis, sollicitudin sed, metus.
+Donec nunc pede, tincidunt in, venenatis vitae, faucibus vel.
+
+\begin{sidewaysfigure}
+\centerline{\includegraphics[width=542pt,height=9pc,draft]{empty}}
+\caption{Sideways figure caption. Sideways figure caption. Sideways figure caption. Sideways figure caption. Sideways figure caption. Sideways figure caption.\label{fig3}}
+\end{sidewaysfigure}
+
+Pellentesque wisi. (Kucharik and Shashkov 2012) Nullam malesuada. Morbi
+ut tellus ut pede tincidunt porta. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Etiam congue neque id dolor.
+
+\begin{algorithm}
+\caption{\enskip Pseudocode for our algorithm}\label{alg1}
+\begin{algorithmic}
+  \For each frame
+  \For water particles $f_{i}$
+  \State compute fluid flow \cite{Hirt1974}
+  \State compute fluid--solid interaction \cite{Benson1992}
+  \State apply adhesion and surface tension \cite{Margolin2003}
+  \EndFor
+   \For solid particles $s_{i}$
+   \For neighboring water particles $f_{j}$
+   \State compute virtual water film \\(see Section~\ref{sec3})
+   \EndFor
+   \EndFor
+   \For solid particles $s_{i}$
+   \For neighboring water particles $f_{j}$
+   \State compute growth direction vector \\(see Section~\ref{sec2})
+   \EndFor
+   \EndFor
+   \For solid particles $s_{i}$
+   \For neighboring water particles $f_{j}$
+   \State compute $F_{\theta}$ (see Section~\ref{sec1})
+   \State compute $CE(s_{i},f_{j})$ \\(see Section~\ref{sec3})
+   \If $CE(b_{i}, f_{j})$ $>$ glaze threshold
+   \State $j$th water particle's phase $\Leftarrow$ ICE
+   \EndIf
+   \If $CE(c_{i}, f_{j})$ $>$ icicle threshold
+   \State $j$th water particle's phase $\Leftarrow$ ICE
+   \EndIf
+   \EndFor
+   \EndFor
+  \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+Donec et nisl at wisi luctus bibendum. Nam interdum tellus ac libero.
+Sed sem justo, laoreet vitae, fringilla at, adipiscing ut, nibh.
+Maecenas non sem quis tortor eleifend fermentum. Etiam id tortor ac
+mauris porta vulputate. Integer porta neque vitae massa (Hirt, Amsden,
+and Cook 1974; Benson 1992). Maecenas tempus libero a libero posuere
+dictum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+posuere cubilia Curae; Aenean quis mauris sed elit commodo placerat.
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+inceptos hymenaeos. Vivamus rhoncus tincidunt libero. Etiam elementum
+pretium justo. Vivamus est. Morbi a tellus eget pede tristique commodo
+(Benson 1992). Nulla nisl. Vestibulum sed nisl eu sapien cursus rutrum.
+
+Pellentesque wisi. Nullam malesuada. Morbi ut tellus ut pede tincidunt
+porta. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam
+congue neque id dolor.
+
+Donec et nisl at wisi luctus bibendum. Nam interdum tellus ac libero.
+Sed sem justo, laoreet vitae, fringilla at, adipiscing ut, nibh. Integer
+porta neque vitae massa. Maecenas tempus libero a libero posuere dictum.
+Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+cubilia Curae; Aenean quis mauris sed elit commodo placerat. Maecenas
+non sem quis tortor eleifend fermentum. Etiam id tortor ac mauris porta
+vulputate. Integer porta neque vitae massa. Maecenas tempus libero a
+libero posuere dictum. Vestibulum ante ipsum primis in faucibus orci
+luctus et ultrices posuere cubilia Curae; Aenean quis mauris sed elit
+commodo placerat. Class aptent taciti sociosqu ad litora torquent per
+conubia nostra, per inceptos hymenaeos. Vivamus rhoncus tincidunt
+libero. Etiam elementum pretium justo. Vivamus est. Morbi a tellus eget
+pede tristique commodo. Nulla nisl. Vestibulum sed nisl eu sapien cursus
+rutrum.
+
+\begin{align}\label{eq23}
+ \|\tilde{X}(k)\|^2
+ &=\frac{\left\|\sum\limits_{i=1}^{p}\tilde{Y}_i(k)+\sum\limits_{j=1}^{q}\tilde{Z}_j(k) \right\|^2}{(p+q)^2} \nonumber\\
+& \leq\frac{\sum\limits_{i=1}^{p}\left\|\tilde{Y}_i(k)\right\|^2+\sum\limits_{j=1}^{q}\left\|\tilde{Z}_j(k)\right\|^2 }{p+q}.
+\end{align}
+
+Sed feugiat. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Ut pellentesque augue sed urna.
+Vestibulum diam eros, fringilla et, consectetuer eu, nonummy id, sapien.
+Nullam at lectus. In sagittis ultrices mauris. Curabitur malesuada erat
+sit amet massa. Fusce blandit. Aliquam erat volutpat. Aliquam euismod.
+Aenean vel lectus. Nunc imperdiet justo nec dolor.
+
+Etiam euismod. Fusce facilisis lacinia dui. Suspendisse potenti. In mi
+erat, cursus id, nonummy sed, ullamcorper eget, sapien. Praesent
+pretium, magna in eleifend egestas, pede pede pretium lorem, quis
+consectetuer tortor sapien facilisis magna. Mauris quis magna varius
+nulla scelerisque imperdiet. Aliquam non quam. Aliquam porttitor quam a
+lacus. Praesent vel arcu ut tortor cursus volutpat. In vitae pede quis
+diam bibendum placerat. Fusce elementum convallis neque. Sed dolor orci,
+scelerisque ac, dapibus nec, ultricies ut, mi. Duis nec dui quis leo
+sagittis commodo.
+
+\begin{align}\label{eq24}
+ \|\tilde{X}(k)\|^2
+ &=\frac{\left\|\sum\limits_{i=1}^{p}\tilde{Y}_i(k)+\sum\limits_{j=1}^{q}\tilde{Z}_j(k) \right\|^2}{(p+q)^2}\nonumber\\
+& \leq\frac{\sum\limits_{i=1}^{p}\left\|\tilde{Y}_i(k)\right\|^2+\sum\limits_{j=1}^{q}\left\|\tilde{Z}_j(k)\right\|^2 }{p+q}.
+\end{align}
+
+Aliquam lectus. Vivamus leo. Quisque ornare tellus ullamcorper nulla.
+Mauris porttitor pharetra tortor. Sed fringilla justo sed mauris. Mauris
+tellus. Sed non leo. Nullam elementum, magna in cursus sodales, augue
+est scelerisque sapien, venenatis congue nulla arcu et pede. Ut suscipit
+enim vel sapien. Donec congue. Maecenas urna mi, suscipit in, placerat
+ut, vestibulum ut, massa. Fusce ultrices nulla et nisl.
+
+Etiam ac leo a risus tristique nonummy. Donec dignissim tincidunt nulla.
+Vestibulum rhoncus molestie odio. Sed lobortis, justo et pretium
+lobortis, mauris turpis condimentum augue, nec ultricies nibh arcu
+pretium enim. Nunc purus neque, placerat id, imperdiet sed, pellentesque
+nec, nisl. Vestibulum imperdiet neque non sem accumsan laoreet. In hac
+habitasse platea dictumst. Etiam condimentum facilisis libero.
+Suspendisse in elit quis nisl aliquam dapibus. Pellentesque auctor
+sapien. Sed egestas sapien nec lectus. Pellentesque vel dui vel neque
+bibendum viverra. Aliquam porttitor nisl nec pede. Proin mattis libero
+vel turpis. Donec rutrum mauris et libero. Proin euismod porta felis.
+Nam lobortis, metus quis elementum commodo, nunc lectus elementum
+mauris, eget vulputate ligula tellus eu neque. Vivamus eu dolor.
+
+\section{Conclusions}\label{sec5}
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit,
+vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum
+gravida mauris. Nam arcu libero, nonummy eget, consectetuer id,
+vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus
+vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor
+gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra
+ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus.
+Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla.
+Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh
+mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci
+sit amet orci dignissim rutrum.
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi.
+Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis
+vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
+Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla
+ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+\section*{Author contributions}\label{author-contributions}
+\addcontentsline{toc}{section}{Author contributions}
+
+This is an author contribution text. This is an author contribution
+text. This is an author contribution text. This is an author
+contribution text. This is an author contribution text.
+
+\section*{Acknowledgments}\label{acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
+
+This is acknowledgment text. (Kenamond and Burton September 2-\/-6,
+2013) Provide text here. This is acknowledgment text. Provide text here.
+This is acknowledgment text. Provide text here. This is acknowledgment
+text. Provide text here. This is acknowledgment text. Provide text here.
+This is acknowledgment text. Provide text here. This is acknowledgment
+text. Provide text here. This is acknowledgment text. Provide text here.
+This is acknowledgment text. Provide text here.
+
+\section*{Financial disclosure}\label{financial-disclosure}
+\addcontentsline{toc}{section}{Financial disclosure}
+
+None reported.
+
+\section*{Conflict of interest}\label{conflict-of-interest}
+\addcontentsline{toc}{section}{Conflict of interest}
+
+The authors declare no potential conflict of interests
+
+\bibliography{ bibliography.bib }
+
+\section*{Supporting information}\label{supporting-information}
+\addcontentsline{toc}{section}{Supporting information}
+
+Additional supporting information may be found in the online version of
+the article at the publisher's website.
+
+\appendix
+
+\section{Program codes appear in
+Appendix}\label{program-codes-appear-in-appendix}
+
+\vspace*{12pt}
+
+Using the package \texttt{listings} you can add non-formatted text as
+you would do with \texttt{\textbackslash{}begin\{verbatim\}} but its
+main aim is to include the source code of any programming language
+within your document.\texttt{\textbackslash{}newline} Use
+\texttt{\textbackslash{}begin\{lstlisting\}...\textbackslash{}end\{lstlisting\}}
+for program codes without mathematics.
+
+The \texttt{listings} package supports all the most common languages and
+it is highly customizable. If you just want to write code within your
+document, the package provides the \texttt{lstlisting} environment; the
+output will be in Computer Modern typewriter font. Refer to the below
+example:
+
+\begin{lstlisting}[caption={Descriptive caption text},label=DescriptiveLabel, basicstyle=\fontsize{8}{10}\selectfont\ttfamily]
+for i:=maxint to 0 do
+begin
+{ do nothing }
+end;
+Write('Case insensitive ');
+WritE('Pascal keywords.');
+\end{lstlisting}
+
+\subsection{Subsection title of first
+appendix}\label{subsection-title-of-first-appendix}
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi.
+Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis
+vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
+Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla
+ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
+accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim. Praesent
+euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus
+pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+pellentesque felis eu massa. Nulla malesuada porttitor diam. Donec felis
+erat, congue non, volutpat at, tincidunt tristique, libero. Vivamus
+viverra fermentum felis. Donec nonummy pellentesque ante. Phasellus
+adipiscing semper elit. Proin fermentum massa ac quam. Sed diam turpis,
+molestie vitae, placerat a, molestie nec, leo. Maecenas lacinia. Nam
+ipsum ligula, eleifend at, accumsan nec, suscipit a, ipsum. Morbi
+blandit ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia
+nulla vitae enim. Pellentesque tincidunt purus vel magna. Integer non
+enim. Praesent euismod nunc eu purus. Donec bibendum quam in tellus.
+Nullam cursus pulvinar lectus. Donec et mi. Nam vulputate metus eu enim.
+Vestibulum pellentesque felis eu massa.
+
+\subsubsection{Subsection title of first
+appendix}\label{subsection-title-of-first-appendix-1}
+
+\noindent\textbf{Unnumbered figure}
+
+\begin{center}
+\includegraphics[width=7pc,height=8pc,draft]{empty}
+\end{center}
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. Aliquam pellentesque, augue quis sagittis
+posuere, turpis lacus congue quam, in hendrerit risus eros eget felis.
+Maecenas eget erat in sapien mattis porttitor. Vestibulum porttitor.
+Nulla facilisi. Sed a turpis eu lacus commodo facilisis. Morbi
+fringilla, wisi in dignissim interdum, justo lectus sagittis dui, et
+vehicula libero dui cursus dui. Mauris tempor ligula sed lacus. Duis
+cursus enim ut augue. Cras ac magna. Cras nulla.
+
+Nulla egestas. Curabitur a leo. Quisque egestas wisi eget nunc. Nam
+feugiat lacus vel est. Curabitur consectetuer. Suspendisse vel felis. Ut
+lorem lorem, interdum eu, tincidunt sit amet, laoreet vitae, arcu.
+Aenean faucibus pede eu ante. Praesent enim elit, rutrum at, molestie
+non, nonummy vel, nisl. Ut lectus eros, malesuada sit amet, fermentum
+eu, sodales cursus, magna. Donec eu purus. Quisque vehicula, urna sed
+ultricies auctor, pede lorem egestas dui, et convallis elit erat sed
+nulla. Donec luctus. Curabitur et nunc. Aliquam dolor odio, commodo
+pretium, ultricies non, pharetra in, velit. Integer arcu est, nonummy
+in, fermentum faucibus, egestas vel, odio.
+
+\section{Section title of second
+appendix}\label{section-title-of-second-appendix}
+
+\vspace*{12pt}
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. Aliquam pellentesque, augue quis sagittis
+posuere, turpis lacus congue quam, in hendrerit risus eros eget felis.
+Maecenas eget erat in sapien mattis porttitor. Vestibulum porttitor.
+Nulla facilisi. Sed a turpis eu lacus commodo facilisis. Morbi
+fringilla, wisi in dignissim interdum, justo lectus sagittis dui, et
+vehicula libero dui cursus dui. Mauris tempor ligula sed lacus. Duis
+cursus enim ut augue. Cras ac magna. Cras nulla (Figure~\ref{fig5}).
+
+Nulla egestas. Curabitur a leo. Quisque egestas wisi eget nunc. Nam
+feugiat lacus vel est. Curabitur consectetuer. Suspendisse vel felis. Ut
+lorem lorem, interdum eu, tincidunt sit amet, laoreet vitae, arcu.
+Aenean faucibus pede eu ante. Praesent enim elit, rutrum at, molestie
+non, nonummy vel, nisl. Ut lectus eros, malesuada sit amet, fermentum
+eu, sodales cursus, magna. Donec eu purus. Quisque vehicula, urna sed
+ultricies auctor, pede lorem egestas dui, et convallis elit erat sed
+nulla. Donec luctus. Curabitur et nunc. Aliquam dolor odio, commodo
+pretium, ultricies non, pharetra in, velit. Integer arcu est, nonummy
+in, fermentum faucibus, egestas vel, odio.
+
+%== Figure 4 ==
+%% Example for figure inside appendix
+\begin{figure}[b]
+\centerline{\includegraphics[height=10pc,width=78mm,draft]{empty}}
+\caption{This is an example for appendix figure.\label{fig5}}
+\end{figure}
+
+\subsection{Subsection title of second
+appendix}\label{subsection-title-of-second-appendix}
+
+Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed
+vehicula hendrerit sem. Duis non odio. Morbi ut dui. Sed accumsan risus
+eget odio. In hac habitasse platea dictumst. Pellentesque non elit.
+Fusce sed justo eu urna porta tincidunt. Mauris felis odio, sollicitudin
+sed, volutpat a, ornare ac, erat. Morbi quis dolor. Donec pellentesque,
+erat ac sagittis semper, nunc dui lobortis purus, quis congue purus
+metus ultricies tellus. Proin et quam. Class aptent taciti sociosqu ad
+litora torquent per conubia nostra, per inceptos hymenaeos. Praesent
+sapien turpis, fermentum vel, eleifend faucibus, vehicula eu, lacus.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada
+fames ac turpis egestas. Donec odio elit, dictum in, hendrerit sit amet,
+egestas sed, leo. Praesent feugiat sapien aliquet odio. Integer vitae
+justo. Aliquam vestibulum fringilla lorem. Sed neque lectus,
+consectetuer at, consectetuer sed, eleifend ac, lectus. Nulla facilisi.
+Pellentesque eget lectus. Proin eu metus. Sed porttitor. In hac
+habitasse platea dictumst. Suspendisse eu lectus. Ut mi mi, lacinia sit
+amet, placerat et, mollis vitae, dui. Sed ante tellus, tristique ut,
+iaculis eu, malesuada ac, dui. Mauris nibh leo, facilisis non,
+adipiscing quis, ultrices a, dui.
+
+\subsubsection{Subsection title of second
+appendix}\label{subsection-title-of-second-appendix-1}
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit,
+vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum
+gravida mauris. Nam arcu libero, nonummy eget, consectetuer id,
+vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus
+vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor
+gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra
+ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus.
+Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla.
+Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh
+mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci
+sit amet orci dignissim rutrum (Table~\ref{tab4}).
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi.
+Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis
+vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
+Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla
+ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+\begin{table*}[t]%
+\centering
+\caption{This is an example of Appendix table showing food requirements of army, navy and airforce.\label{tab4}}%
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}llllll@{\extracolsep\fill}}%
+\toprule
+\textbf{Col1 head} & \textbf{Col2 head} & \textbf{Col3 head} & \textbf{Col4 head} & \textbf{Col5 head} & \textbf{Col6 head} \\
+\midrule
+col1 text & col2 text & col3 text & col4 text & col5 text & col6 text\\
+col1 text & col2 text & col3 text & col4 text & col5 text & col6 text\\
+col1 text & col2 text & col3 text& col4 text & col5 text & col6 text\\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+Example for an equation inside appendix
+
+\begin{equation}
+{\mathcal{L}} = i \bar{\psi} \gamma^\mu D_\mu \psi - \frac{1}{4} F_{\mu\nu}^a F^{a\mu\nu} - m \bar{\psi} \psi\label{eq25}
+\end{equation}
+
+\section{Example of another appendix
+section}\label{example-of-another-appendix-section}
+
+\vspace*{12pt}
+
+This is sample for paragraph text this is sample for paragraph text this
+is sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text this is sample for paragraph text this is
+sample for paragraph text
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi.
+Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis
+vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi
+ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
+Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla
+ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
+accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim. Praesent
+euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus
+pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+pellentesque felis eu massa.
+
+\begin{equation}
+\mathcal{L} = i \bar{\psi} \gamma^\mu D_\mu \psi
+    - \frac{1}{4} F_{\mu\nu}^a F^{a\mu\nu} - m \bar{\psi} \psi
+\label{eq26}
+\end{equation}
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
+at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
+nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
+fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a,
+molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
+accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim. Praesent
+euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus
+pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+pellentesque felis eu massa.
+
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae
+lacus tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. In hac habitasse platea dictumst. Integer tempus
+convallis augue. Etiam facilisis. Nunc elementum fermentum wisi. Aenean
+placerat. Ut imperdiet, enim sed gravida sollicitudin, felis odio
+placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor.
+Proin tempus nibh sit amet nisl. Vivamus quis tortor vitae risus porta
+vehicula.
+
+\begin{center}
+\begin{tabular*}{250pt}{@{\extracolsep\fill}lcc@{\extracolsep\fill}}%
+\toprule
+\textbf{Col1 head} & \textbf{Col2 head} & \textbf{Col3 head} \\
+\midrule
+col1 text & col2 text & col3 text \\
+col1 text & col2 text & col3 text \\
+col1 text & col2 text & col3 text \\
+\bottomrule
+\end{tabular*}
+\end{center}
+
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae
+lacus tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. In hac habitasse platea dictumst. Integer tempus
+convallis augue. Etiam facilisis. Nunc elementum fermentum wisi. Aenean
+placerat. Ut imperdiet, enim sed gravida sollicitudin, felis odio
+placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor.
+Proin tempus nibh sit amet nisl. Vivamus quis tortor vitae risus porta
+vehicula.
+
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bibendum, nulla a
+faucibus semper, leo velit ultricies tellus, ac venenatis arcu wisi vel
+nisl. Vestibulum diam. Aliquam pellentesque, augue quis sagittis
+posuere, turpis lacus congue quam, in hendrerit risus eros eget felis.
+Maecenas eget erat in sapien mattis porttitor. Vestibulum porttitor.
+Nulla facilisi. Sed a turpis eu lacus commodo facilisis. Morbi
+fringilla, wisi in dignissim interdum, justo lectus sagittis dui,
+evehicula libero dui cursus dui. Mauris tempor ligula sed lacus. Duis
+cursus enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat lacus vel
+est. Curabitur consectetuer.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada
+fames ac turpis egestas. Donec odio elit, dictum in, hendrerit sit amet,
+egestas sed, leo. Praesent feugiat sapien aliquet odio. Integer vitae
+justo. Aliquam vestibulum fringilla lorem. Sed neque lectus,
+consectetuer at, consectetuer sed, eleifend ac, lectus. Nulla facilisi.
+Pellentesque eget lectus. Proin eu metus. Sed porttitor. In hac
+habitasse platea dictumst. Suspendisse eu lectus. Ut mi mi, lacinia sit
+amet, placerat et, mollis vitae, dui. Sed ante tellus, tristique ut,
+iaculis eu, malesuada ac, dui. Mauris nibh leo, facilisis non,
+adipiscing quis, ultrices a, dui.
+
+\nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
+
+\section*{Author Biography}\label{author-biography}
+\addcontentsline{toc}{section}{Author Biography}
+
+\begin{biography}{\includegraphics[width=76pt,height=76pt,draft]{empty}}{
+{\textbf{Author Name.} Please check with the journal's author guidelines whether
+author biographies are required. They are usually only included for
+review-type articles, and typically require photos and brief
+biographies for each author.}}
+\end{biography}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-Barth1997}
+Barth, T J. 1997. {``Numerical Methods for Gasdynamic Systems on
+Unstructured Meshes.''} In \emph{An {I}ntroduction to {R}ecent
+{D}evelopments in {T}heory and {N}umerics for {C}onservation {L}aws,
+{P}roceedings of the {I}nternational {S}chool on {T}heory and {N}umerics
+for {C}onservation {L}aws}, edited by D Kroner, C Rohde, and M
+Ohlberger, 2nd ed. Lecture {N}otes in {C}omputational {S}cience and
+{E}ngineering. Springer.
+
+\bibitem[\citeproctext]{ref-Benson1992}
+Benson, D J. 1992. {``Computational Methods in {L}agrangian and
+{E}ulerian Hydrocodes.''} \emph{Comput {M}ethod {A}ppl {M}} 99 (2--3):
+235--394.
+
+\bibitem[\citeproctext]{ref-Berndt2011}
+Berndt, M, J Breil, S Galera, M Kucharik, P H Maire, and M Shashkov.
+2011. {``Two-Step Hybrid Conservative Remapping for Multimaterial
+Arbitrary {L}agrangian-{E}ulerian Methods.''} \emph{J {C}omput {P}hys}
+230 (17): 6664--87.
+
+\bibitem[\citeproctext]{ref-Blanchard2015}
+Blanchard, G, and R Loubere. 2015. {``High-Order {C}onservative
+{R}emapping with a Posteriori {MOOD} Stabilization on Polygonal
+Meshes.''} Details on how published.
+
+\bibitem[\citeproctext]{ref-Breil2015}
+Breil, J, H Alcin, and P H Maire. 2015. {``A Swept Intersection-Based
+Remapping Method for Axisymmetric {ReALE} Computation.''} \emph{Int {J}
+{N}umer {M}eth {F}l} 77 (11): 694--706.
+
+\bibitem[\citeproctext]{ref-Burton2013}
+Burton, D E, M A Kenamond, N R Morgan, T C Carney, M J Shashkov, and A B
+Author. September 2-\/-6, 2013. {``An Intersection Based {ALE} Scheme
+{(xALE)} for Cell Centered Hydrodynamics {(CCH)}.''} In. Talk at
+{M}ultimat 2013, {I}nternational {C}onference on {N}umerical {M}ethods
+for {M}ulti-{M}aterial {F}luid {F}lows. San {F}rancisco: The
+Organization.
+
+\bibitem[\citeproctext]{ref-Dukowicz2000}
+Dukowicz, J K, and J R Baumgardner. 2000. {``Incremental Remapping as a
+Transport/Advection Algorithm.''} \emph{J {C}omput {P}hys} 160 (1):
+318--35.
+
+\bibitem[\citeproctext]{ref-Hirt1974}
+Hirt, C W, A A Amsden, and J L Cook. 1974. {``An Arbitrary
+{L}agrangian-{E}ulerian Computing Method for All Flow Speeds.''} \emph{J
+{C}omput {P}hys} 14 (3): 227--53.
+
+\bibitem[\citeproctext]{ref-Kenamond2013}
+Kenamond, M A, and D E Burton. September 2-\/-6, 2013. {``Exact
+Intersection Remapping of Multi-Material Domain-Decomposed Polygonal
+Meshes.''} In. Talk at {M}ultimat 2013, {I}nternational {C}onference on
+{N}umerical {M}ethods for {M}ulti-{M}aterial {F}luid {F}lows. San
+{F}rancisco: The Organization.
+
+\bibitem[\citeproctext]{ref-Klima2017}
+Klima, M, M Kucharik, and M Shashkov. 2017. {``Local Error Analysis and
+Comparison of the Swept- and Intersection-Based Remapping Methods.''}
+\emph{Commun {C}omput {P}hys} 21 (2): 526--58.
+
+\bibitem[\citeproctext]{ref-Knupp1999}
+Knupp, P M. 1999. {``Winslow Smoothing on Two-Dimensional Unstructured
+Meshes.''} \emph{Eng {C}omput} 15: 263--68.
+
+\bibitem[\citeproctext]{ref-Kucharik2011}
+Kucharik, M, and M Shashkov. 2011. {``Flux-Based Approach for
+Conservative Remap of Multi-Material Quantities in {2D} Arbitrary
+{L}agrangian-{E}ulerian Simulations.''} In \emph{Finite {V}olumes for
+{C}omplex {A}pplications {VI} {P}roblems \& {P}erspectives}, edited by J
+Fořt, J Fürst, J Halama, R Herbin, and F Hubert, 1st ed., 623--31.
+Springer {P}roceedings in {M}athematics. Springer.
+
+\bibitem[\citeproctext]{ref-Kucharik2012}
+---------. 2012. {``One-Step Hybrid Remapping Algorithm for
+Multi-Material Arbitrary {L}agrangian-{E}ulerian Methods.''} \emph{J
+{C}omput {P}hys} 231 (7): 2851--64.
+
+\bibitem[\citeproctext]{ref-Kucharik2014}
+---------. 2014. {``Conservative Multi-Material Remap for Staggered
+Multi-Material Arbitrary {L}agrangian-{E}ulerian Methods.''} \emph{J
+{C}omput {P}hys} 258: 268--304.
+
+\bibitem[\citeproctext]{ref-Kucharik2003}
+Kucharik, M, M Shashkov, and B Wendroff. 2003. {``An Efficient
+Linearity-and-Bound-Preserving Remapping Method.''} \emph{J {C}omput
+{P}hys} 188 (2): 462--71.
+
+\bibitem[\citeproctext]{ref-Lauritzen2011}
+Lauritzen, P, C Erath, and R Mittal. 2011. {``On Simplifying
+{`Incremental Remap'}-Based Transport Schemes.''} \emph{J {C}omput
+{P}hys} 230 (22): 7957--63.
+
+\bibitem[\citeproctext]{ref-Liska2010}
+Liska, R, M Shashkov, P Vachal, B Wendroff, A B Author, B B Author, and
+C C Author. 2010. {``Optimization-Based Synchronized Flux-Corrected
+Conservative Interpolation (Remapping) of Mass and Momentum for
+Arbitrary {L}agrangian-{E}ulerian Methods.''} \emph{J {C}omput {P}hys}
+229 (5): 1467--97.
+
+\bibitem[\citeproctext]{ref-Loubere2005}
+Loubere, R, and M Shashkov. 2005. {``A Subcell Remapping Method on
+Staggered Polygonal Grids for Arbitrary-{L}agrangian-{E}ulerian
+Methods.''} \emph{J {C}omput {P}hys} 209 (1): 105--38.
+
+\bibitem[\citeproctext]{ref-Taylor1937}
+Taylor, G I, and A E Green. 1937. {``Mechanism of the Production of
+Small Eddies from Large Ones.''} \emph{P {R}oy {S}oc {L}ond {A} {M}at}
+158 (895): 499--521.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}
